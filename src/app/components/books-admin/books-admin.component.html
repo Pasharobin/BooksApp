@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div class="container">
+  <br>
+  <div class="row">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchStr">
+  </div>
+  <hr>
+  <div class="row">
+    <div class="card col-sm-3" *ngFor="let book of books | search:searchStr; let i = index">
+      <img src="{{book.image}}" class="card-img-top" alt="..." (click)="onSelect(i)">
+      <div class="card-body">
+        <div *ngIf="!book.selected">
+          <h5 class="card-title">{{book.name}}</h5>
+          <h6>{{book.gener}}</h6>
+        </div>
+        <div *ngIf="book.selected">
+          <div class="form-group">
+            <label for="name{{i}}">Name</label>
+            <input type="text" class="form-control" name="name{{i}}" id="name{{i}}" [(ngModel)]="book.name">
+          </div>
+          <div class="form-group">
+            <label for="gener{{i}}">Gener</label>
+            <input type="text" class="form-control" name="gener{{i}}" id="gener{{i}}" [(ngModel)]="book.gener">
+          </div>
+          <div class="form-group">
+            <label for="description{{i}}">Description</label>
+            <textarea name="description{{i}}" id="description{{i}}" rows="6" [(ngModel)]="book.description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="image{{i}}">Image</label>
+            <input type="text" class="form-control" name="image{{i}}" id="image{{i}}" [(ngModel)]="book.image">
+          </div>
+          <div class="form-group">
+            <label>Links</label>
+            <div *ngFor="let link of book.links; let li = index">
+            <input 
+              type="text" 
+              class="form-control"
+              name="link{{i}}-{{li}}" 
+              [(ngModel)]="book.links[li]"
+            >
+            <button type="button" class="btn btn-danger btn-sm" (click)="deleteLink(i, li)">Delete</button>
+          </div>
+          <button type="button" class="btn btn-success btn-sm" (click)="addLink(i)">Add Link</button>
+          </div>
+          <button type="button" class="btn btn-danger btn-lg btn-block" (click)="deleteBook(i)">Delete book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="addBook()">Add book</button>
+  </div>
+</div>

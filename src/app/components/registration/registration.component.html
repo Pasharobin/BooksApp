@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-4 text-center">
+      <h4>Registration</h4>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <form class="col-sm-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group col-12">
+        <label for="email">E-mail</label>
+        <input type="text" class="form-control" id="email" placeholder="Enter your e-mail" formControlName="email">
+        <span *ngIf="form.get('email').invalid && form.get('email').touched">
+          <span *ngIf="form.get('email').hasError('required')">E-mail is required</span>
+          <span *ngIf="form.get('email').hasError('email')">E-mail is invalid</span>
+        </span>
+      </div>
+      <div class="form-group col-12">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Create a password"
+          formControlName="password">
+        <span *ngIf="form.get('password').invalid && form.get('password').touched">
+          <span *ngIf="form.get('password').hasError('required')">E-mail is required</span>
+          <span *ngIf="form.get('password').hasError('minlength')">Password is less than {{ minLength }} symbols</span>
+        </span>
+      </div>
+      <div class="form-group col-12">
+        <input class="btn btn-warning btn-lg btn-block" type="submit" value="Save" [disabled]="form.invalid">
+      </div>
+    </form>
+  </div>
+</div>
